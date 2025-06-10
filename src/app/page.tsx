@@ -21,6 +21,7 @@ export default function AnimatedPortfolio() {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const workRef = useRef<HTMLElement>(null);
@@ -45,6 +46,16 @@ export default function AnimatedPortfolio() {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
+  };
+
+  const copyEmailToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText("xjarifx@gmail.com");
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email: ", err);
+    }
   };
 
   const parallaxOffset = scrollY * 0.5;
@@ -184,9 +195,38 @@ export default function AnimatedPortfolio() {
               transition: "all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s",
             }}
           >
-            <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center relative overflow-hidden group hover:scale-110 transition-all duration-500">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 animate-pulse group-hover:animate-spin transition-all duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+            <div
+              className="w-32 h-32 mx-auto mb-8 rounded-full shadow-2xl shadow-blue-500/25 flex items-center justify-center relative overflow-visible group hover:scale-110 transition-all duration-500 p-1 animate-float"
+              style={{
+                background:
+                  "linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)",
+                backgroundSize: "300% 300%",
+                animation:
+                  "gradient 3s ease infinite, float 6s ease-in-out infinite",
+              }}
+            >
+              <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-xl border border-white/20">
+                <Image
+                  src="/me.png"
+                  alt="Jarif - Backend Developer"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 rounded-full" />
+              {/* Floating water ripple effect */}
+              <div className="absolute -inset-4 rounded-full pointer-events-none">
+                <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-ping"></div>
+                <div
+                  className="absolute inset-0 rounded-full border-2 border-purple-400/20 animate-ping"
+                  style={{ animationDelay: "1s" }}
+                ></div>
+                <div
+                  className="absolute inset-0 rounded-full border-2 border-pink-400/20 animate-ping"
+                  style={{ animationDelay: "2s" }}
+                ></div>
+              </div>
             </div>
           </div>
 
@@ -211,7 +251,7 @@ export default function AnimatedPortfolio() {
               </span>
             ))}
             <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
-              Alex Johnson
+              Jarif
             </span>
           </h1>
 
@@ -224,8 +264,8 @@ export default function AnimatedPortfolio() {
               transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s",
             }}
           >
-            A passionate full-stack developer crafting beautiful, functional
-            experiences that make a difference in people's lives.
+            A passionate backend developer crafting robust, scalable server-side
+            solutions that power amazing digital experiences.
           </p>
 
           {/* Animated Buttons */}
@@ -310,25 +350,23 @@ export default function AnimatedPortfolio() {
             <div className="space-y-6">
               <div className="bg-white/30 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  I'm a full-stack developer with over 5 years of experience
-                  creating digital experiences that combine beautiful design
-                  with powerful functionality. My passion lies in building
-                  products that not only look great but also solve real-world
-                  problems.
+                  I'm a backend developer with over 5 years of experience
+                  building robust, scalable server-side applications and APIs.
+                  My passion lies in creating efficient systems that handle
+                  complex business logic and power seamless user experiences.
                 </p>
               </div>
 
               <div className="bg-white/30 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  When I'm not coding, you can find me exploring new
-                  technologies, contributing to open-source projects, or
-                  enjoying a good cup of coffee while sketching out ideas for my
-                  next project.
+                  When I'm not coding, you can find me exploring new backend
+                  technologies, optimizing database queries, or contributing to
+                  open-source projects while enjoying a good cup of coffee.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-3 pt-4">
-                {["React", "Next.js", "TypeScript", "Node.js"].map(
+                {["JavaScript", "TypeScript", "Node.js", "Express"].map(
                   (skill, index) => (
                     <span
                       key={skill}
@@ -360,27 +398,27 @@ export default function AnimatedPortfolio() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "E-Commerce Platform",
+                title: "E-Commerce API",
                 description:
-                  "A modern e-commerce solution built with Next.js and Stripe integration.",
+                  "RESTful API for e-commerce platform with authentication, payment processing, and inventory management.",
                 image: "/placeholder.svg?height=300&width=400",
-                tags: ["Next.js", "Stripe", "Tailwind"],
+                tags: ["Node.js", "Express", "MongoDB"],
                 gradient: "from-blue-500/20 to-purple-500/20",
               },
               {
-                title: "Task Management App",
+                title: "Real-time Chat System",
                 description:
-                  "Collaborative task management tool with real-time updates and team features.",
+                  "Scalable chat application backend with WebSocket support, message queuing, and user presence tracking.",
                 image: "/placeholder.svg?height=300&width=400",
-                tags: ["React", "Socket.io", "MongoDB"],
+                tags: ["Node.js", "Socket.io", "MySQL"],
                 gradient: "from-green-500/20 to-blue-500/20",
               },
               {
-                title: "Portfolio Website",
+                title: "Task Management API",
                 description:
-                  "Clean, responsive portfolio website with smooth animations and modern design.",
+                  "Enterprise task management system with role-based access control, notifications, and reporting.",
                 image: "/placeholder.svg?height=300&width=400",
-                tags: ["React", "Framer Motion", "CSS"],
+                tags: ["TypeScript", "Express", "PostgreSQL"],
                 gradient: "from-pink-500/20 to-yellow-500/20",
               },
             ].map((project, index) => (
@@ -452,32 +490,32 @@ export default function AnimatedPortfolio() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                category: "Frontend",
+                category: "Backend",
                 skills: [
-                  "React",
-                  "Next.js",
+                  "Node.js",
+                  "Express",
+                  "JavaScript",
                   "TypeScript",
-                  "Tailwind CSS",
-                  "Framer Motion",
+                  "RESTful APIs",
                 ],
                 icon: <Code className="w-8 h-8" />,
                 gradient: "from-blue-500/20 to-cyan-500/20",
               },
               {
-                category: "Backend",
+                category: "Databases",
                 skills: [
-                  "Node.js",
-                  "Express",
-                  "Python",
-                  "PostgreSQL",
+                  "MySQL",
                   "MongoDB",
+                  "PostgreSQL",
+                  "Redis",
+                  "Database Design",
                 ],
                 icon: <Zap className="w-8 h-8" />,
                 gradient: "from-green-500/20 to-emerald-500/20",
               },
               {
-                category: "Tools",
-                skills: ["Git", "Docker", "AWS", "Vercel", "Figma"],
+                category: "Tools & DevOps",
+                skills: ["Git", "Docker", "AWS", "Linux", "Postman"],
                 icon: <Palette className="w-8 h-8" />,
                 gradient: "from-purple-500/20 to-pink-500/20",
               },
@@ -485,9 +523,9 @@ export default function AnimatedPortfolio() {
                 category: "Soft Skills",
                 skills: [
                   "Problem Solving",
-                  "Team Leadership",
-                  "Communication",
-                  "Project Management",
+                  "System Design",
+                  "API Documentation",
+                  "Code Review",
                 ],
                 icon: <Heart className="w-8 h-8" />,
                 gradient: "from-orange-500/20 to-red-500/20",
@@ -552,12 +590,7 @@ export default function AnimatedPortfolio() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 flex items-center gap-2 relative overflow-hidden group">
-              <Mail className="w-5 h-5 relative z-10" />
-              <span className="relative z-10">Send Email</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Button>
+          <div className="flex justify-center mb-12">
             <Button className="border-2 border-gray-300 text-gray-700 hover:bg-white/50 backdrop-blur-xl px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-blue-400 bg-white/30">
               Download Resume
             </Button>
@@ -565,27 +598,58 @@ export default function AnimatedPortfolio() {
 
           <div className="flex justify-center gap-6">
             {[
-              { icon: <Github className="w-6 h-6" />, href: "#" },
-              { icon: <Linkedin className="w-6 h-6" />, href: "#" },
-              { icon: <Mail className="w-6 h-6" />, href: "#" },
+              {
+                icon: <Github className="w-6 h-6" />,
+                href: "https://github.com/xjarifx",
+                label: "GitHub",
+              },
+              {
+                icon: <Linkedin className="w-6 h-6" />,
+                href: "https://www.linkedin.com/in/xjarifx/",
+                label: "LinkedIn",
+              },
             ].map((social, index) => (
               <a
                 key={index}
                 href={social.href}
-                className="w-12 h-12 bg-white/30 backdrop-blur-xl hover:bg-white/50 rounded-full flex items-center justify-center transition-all duration-300 border border-white/20 hover:scale-110 hover:shadow-xl text-gray-700 hover:text-blue-600 group"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-white/30 backdrop-blur-xl hover:bg-white/50 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gradient-to-r from-blue-500/30 to-purple-500/30 hover:border-blue-500 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/25 text-gray-700 hover:text-blue-600 group relative overflow-hidden"
                 style={{
                   transform: `translateY(${isLoaded ? "0" : "20px"})`,
                   opacity: isLoaded ? 1 : 0,
                   transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${
                     index * 0.1
                   }s`,
+                  background:
+                    "linear-gradient(white, white) padding-box, linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3)) border-box",
                 }}
+                title={social.label}
               >
                 <div className="group-hover:scale-110 transition-transform duration-300">
                   {social.icon}
                 </div>
               </a>
             ))}
+
+            {/* Email Address - Click to Copy */}
+            <button
+              onClick={copyEmailToClipboard}
+              className="bg-white/30 backdrop-blur-xl hover:bg-white/50 rounded-full px-4 py-3 transition-all duration-300 border-2 hover:scale-110 hover:shadow-xl hover:shadow-purple-500/25 text-gray-700 hover:text-purple-600 group relative overflow-hidden"
+              style={{
+                transform: `translateY(${isLoaded ? "0" : "20px"})`,
+                opacity: isLoaded ? 1 : 0,
+                transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s`,
+                background:
+                  "linear-gradient(white, white) padding-box, linear-gradient(45deg, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3)) border-box",
+                border: "2px solid transparent",
+              }}
+              title={emailCopied ? "Email copied!" : "Click to copy email"}
+            >
+              <span className="text-sm font-medium group-hover:scale-110 transition-transform duration-300">
+                {emailCopied ? "Copied!" : "xjarifx@gmail.com"}
+              </span>
+            </button>
           </div>
         </div>
       </section>
@@ -594,7 +658,7 @@ export default function AnimatedPortfolio() {
       <footer className="py-8 px-6 border-t border-white/20 bg-white/20 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-gray-600 flex items-center justify-center gap-2">
-            © 2024 Alex Johnson. Designed and built with
+            © 2025 Jarif. Designed and built with
             <Heart className="w-4 h-4 text-red-500 animate-pulse" />
             using React and Tailwind CSS.
           </p>
@@ -609,6 +673,17 @@ export default function AnimatedPortfolio() {
           }
           50% {
             transform: translateY(-20px);
+          }
+        }
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
           }
         }
         .animate-float {
