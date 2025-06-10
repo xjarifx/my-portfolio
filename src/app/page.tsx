@@ -20,6 +20,7 @@ export default function AnimatedPortfolio() {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
@@ -27,6 +28,7 @@ export default function AnimatedPortfolio() {
   const skillsRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    setIsMounted(true);
     setIsLoaded(true);
     const handleScroll = () => setScrollY(window.scrollY);
     const handleMouseMove = (e: MouseEvent) => {
@@ -41,6 +43,15 @@ export default function AnimatedPortfolio() {
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
+  // Prevent hydration mismatch by not rendering dynamic content until mounted
+  if (!isMounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading...</div>
+      </div>
+    );
+  }
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
@@ -238,7 +249,7 @@ export default function AnimatedPortfolio() {
               transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s",
             }}
           >
-            {"Hello, I&apos;m".split("").map((char, index) => (
+            {"Hello, I'm".split("").map((char, index) => (
               <span
                 key={index}
                 className="inline-block hover:scale-110 hover:-rotate-12 transition-all duration-300 cursor-default"
