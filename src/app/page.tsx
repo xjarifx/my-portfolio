@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import {
   ChevronDown,
-  Mail,
   Github,
   Linkedin,
   ExternalLink,
@@ -239,7 +238,7 @@ export default function AnimatedPortfolio() {
               transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s",
             }}
           >
-            {"Hello, I'm".split("").map((char, index) => (
+            {"Hello, I&apos;m".split("").map((char, index) => (
               <span
                 key={index}
                 className="inline-block hover:scale-110 hover:-rotate-12 transition-all duration-300 cursor-default"
@@ -350,7 +349,7 @@ export default function AnimatedPortfolio() {
             <div className="space-y-6">
               <div className="bg-white/30 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  I'm a backend developer with over 5 years of experience
+                  I&apos;m a backend developer with over 5 years of experience
                   building robust, scalable server-side applications and APIs.
                   My passion lies in creating efficient systems that handle
                   complex business logic and power seamless user experiences.
@@ -359,9 +358,10 @@ export default function AnimatedPortfolio() {
 
               <div className="bg-white/30 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  When I'm not coding, you can find me exploring new backend
-                  technologies, optimizing database queries, or contributing to
-                  open-source projects while enjoying a good cup of coffee.
+                  When I&apos;m not coding, you can find me exploring new
+                  backend technologies, optimizing database queries, or
+                  contributing to open-source projects while enjoying a good cup
+                  of coffee.
                 </p>
               </div>
 
@@ -578,15 +578,15 @@ export default function AnimatedPortfolio() {
       <section id="contact" className="py-24 px-6 relative">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 hover:scale-105 transition-transform duration-300">
-            Let's Work Together
+            Let&apos;s Work Together
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8 animate-pulse" />
 
           <div className="bg-white/30 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl mb-12 hover:shadow-3xl transition-all duration-500">
             <p className="text-xl text-gray-700 leading-relaxed">
-              I'm always interested in new opportunities and exciting projects.
-              Whether you have a question or just want to say hi, I'll try my
-              best to get back to you!
+              I&apos;m always interested in new opportunities and exciting
+              projects. Whether you have a question or just want to say hi,
+              I&apos;ll try my best to get back to you!
             </p>
           </div>
 
